@@ -78,7 +78,7 @@ class BlogController extends AbstractController
     /**
     * Show all row from article's entity
     *
-    * @Route("/category/{categoryName}", name="show_category",
+    * @Route("/blog/category/{categoryName}", name="show_category",
     *     defaults={"categoryName" = "javascript"})
     *@method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     * @return Response A response instance
