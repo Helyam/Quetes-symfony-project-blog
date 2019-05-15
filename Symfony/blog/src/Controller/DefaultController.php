@@ -8,12 +8,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/", name="app_index")
+     * @Route("/default", name="app_index")
     */
     public function index()
     {
-        return $this->render('blog/default.html.twig', [
-            'Titre' => 'Bienvenue sur mon blog'
-            ]);
+        return $this->render('blog/default.html.twig');
     }
 }
