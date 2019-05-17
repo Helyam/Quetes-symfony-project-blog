@@ -4,13 +4,13 @@
 
 {% block body %}
     <h1>All Category from category's table : </h1>
-    {% for article in articles %}
-        <div>
-            <h2>{{ article.id }} / {{ article.title }}</h2>
-            <p>{{ article.content }}</p>
-        </div>
-    {% else %}
-        Aucun article trouvé.
+    {% for i in 0..2 %}
+            <div>
+                <h2>{{ articles[i].id }} / {{ articles[i].title }}</h2>
+                <p>{{ articles[i].content }}</p>
+            </div>
+        {% else %}
+            Aucun article trouvé.
     {% endfor %}
     <a href="{{ path('app_index') }}">
       Back to homepage.

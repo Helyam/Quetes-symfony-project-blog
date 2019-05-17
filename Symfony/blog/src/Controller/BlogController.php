@@ -75,30 +75,46 @@ class BlogController extends AbstractController
       ]
     );
     }
+    
+    // public function showByCategory(string $categoryName)
+    // {
+    //     $category = $this->getDoctrine()
+    //       ->getRepository(Category::class)
+    //       ->findOneBy(['name' => mb_strtolower($categoryName)]);
+
+    //     $articles = $this->getDoctrine()
+    //       ->getRepository(Article::class)
+    //       ->findBy(['category' => $category], ['id' => 'DESC'], 3, 0);
+
+    //     return $this->render(
+    //         'blog/category.html.twig',
+    //         [
+    //           'articles' => $articles,
+    //           'category' => $categoryName
+    //         ]
+    //       );
+
     /**
     * Show all row from article's entity
     *
     * @Route("/blog/category/{categoryName}", name="show_category",
     *     defaults={"categoryName" = "javascript"})
-    *@method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    *
     * @return Response A response instance
     */
     public function showByCategory(string $categoryName)
     {
         $category = $this->getDoctrine()
           ->getRepository(Category::class)
-          ->findOneBy(['name' => mb_strtolower($categoryName)]);
-
-        $articles = $this->getDoctrine()
-          ->getRepository(Article::class)
-          ->findBy(['category' => $category], ['id' => 'DESC'], 3, 0);
+          ->findOneBy(['name' => $categoryName], ['id' => 'DESC'], 3, 0);
+        $articles = $category->getArticles();
 
         return $this->render(
             'blog/category.html.twig',
             [
-              'articles' => $articles,
-              'category' => $categoryName
-            ]
-          );
+          'articles' => $articles,
+          'category' => $categoryName
+        ]
+        );
     }
 }
