@@ -21,16 +21,21 @@ class BlogController extends AbstractController
         $articles = $this->getDoctrine()
           ->getRepository(Article::class)
           ->findAll();
-
         if (!$articles) {
             throw $this->createNotFoundException(
                 'No article found in article\'s table.'
           );
         }
 
+        
+        $categories = $this->getDoctrine()
+          ->getRepository(Category::class)
+          ->findAll();
+
         return $this->render(
             'blog/index.html.twig',
-            ['articles' => $articles]
+            ['articles' => $articles,
+            'categories' => $categories]
       );
     }
 
@@ -97,24 +102,18 @@ class BlogController extends AbstractController
     /**
     * Show all row from article's entity
     *
-    * @Route("/blog/category/{categoryName}", name="show_category",
-    *     defaults={"categoryName" = "javascript"})
-    *
+    * @Route("/blog/category/{name}", name="show_category",
+    *     defaults={"name" = "javascript"})
     * @return Response A response instance
     */
-    public function showByCategory(string $categoryName)
+    public function showByCategory(Category $categoryName) : Response
     {
-        $category = $this->getDoctrine()
-          ->getRepository(Category::class)
-          ->findOneBy(['name' => $categoryName], ['id' => 'DESC'], 3, 0);
-        $articles = $category->getArticles();
-
+        $article = $categoryName->getArticles();
         return $this->render(
             'blog/category.html.twig',
             [
-          'articles' => $articles,
-          'category' => $categoryName
-        ]
+              'articles' => $article
+            ]
         );
     }
 }

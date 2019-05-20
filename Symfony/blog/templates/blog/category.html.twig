@@ -6,7 +6,7 @@
     <h1>All Category from category's table : </h1>
     {% for i in 0..2 %}
             <div>
-                <h2>{{ articles[i].id }} / {{ articles[i].title }}</h2>
+                <h2>{{ articles[i].id }} / {{ articles[i].title }} - Category : {{ articles[i].category.name }}</h2>
                 <p>{{ articles[i].content }}</p>
             </div>
         {% else %}
