@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Article;
 use App\Entity\Category;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\ArticleSearchType;
 
 class BlogController extends AbstractController
 {
@@ -32,11 +34,26 @@ class BlogController extends AbstractController
           ->getRepository(Category::class)
           ->findAll();
 
-        return $this->render(
+        /*return $this->render(
             'blog/index.html.twig',
             ['articles' => $articles,
             'categories' => $categories]
-      );
+        );*/
+
+        $form = $this->createForm(
+            ArticleSearchType::class,
+            null,
+            ['method' => Request::METHOD_GET]
+        );
+     
+        return $this->render(
+            'blog/index.html.twig',
+            [
+            'articles' => $articles,
+            'form' => $form->createView(),
+            'categories' => $categories
+         ]
+     );
     }
 
     /**
