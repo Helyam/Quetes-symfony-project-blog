@@ -3,16 +3,16 @@
 {% block title %}All articles{% endblock %}
 
 {% block body %}
-    <h1>All Category from category's table : </h1>
-    {% for i in 0..2 %}
+    <h1>Tout les article de {{ category.name }} </h1>
+    {% for article in articles %}
             <div>
-                <h2>{{ articles[i].id }} / {{ articles[i].title }} - Category : {{ articles[i].category.name }}</h2>
-                <p>{{ articles[i].content }}</p>
+                <h2>{{ article.id }} / {{ article.title }} - Category : {{ article.category.name }}</h2>
+                <p>{{ article.content }}</p>
             </div>
         {% else %}
             Aucun article trouvé.
     {% endfor %}
-    <a href="{{ path('app_index') }}">
+    <a href="{{ path('blog_index') }}">
       Back to homepage.
     </a>
 {% endblock %}
