@@ -98,24 +98,6 @@ class BlogController extends AbstractController
     );
     }
     
-    // public function showByCategory(string $categoryName)
-    // {
-    //     $category = $this->getDoctrine()
-    //       ->getRepository(Category::class)
-    //       ->findOneBy(['name' => mb_strtolower($categoryName)]);
-
-    //     $articles = $this->getDoctrine()
-    //       ->getRepository(Article::class)
-    //       ->findBy(['category' => $category], ['id' => 'DESC'], 3, 0);
-
-    //     return $this->render(
-    //         'blog/category.html.twig',
-    //         [
-    //           'articles' => $articles,
-    //           'category' => $categoryName
-    //         ]
-    //       );
-
     /**
     * Show all row from article's entity
     *

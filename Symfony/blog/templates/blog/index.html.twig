@@ -12,8 +12,7 @@
         Aucun article trouvé.
     {% endfor %}
     </ul>
+    <a href='{{ path('tag_index') }}'>List de tags</a><br>
     <a href="{{ path('article_index') }}">List des Article</a><br>
-    <a href='{{ path('add_category') }}'>
-    Ajouter une categorie
-    </a><br>
+    <a href='{{ path('add_category') }}'>Ajouter une categorie</a><br>    
 {% endblock %}
