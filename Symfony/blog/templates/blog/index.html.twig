@@ -4,7 +4,19 @@
 {% block title %}All articles{% endblock %}
 
 {% block body %}
-    <h1>List des categories :</h1>
+
+<form method="post">
+    <select name="language" >
+        <option selected>{% trans into language %}Choose your language{% endtrans %}</option>
+        <option value="en">Anglais</option>
+        <option value="fr_FR" style="background-image:url(https://cdn.webshopapp.com/shops/94414/files/54002808/icone-drapeau-francais-telechargement-gratuit.jpg)">Français</option>
+        <option value="de_DE">Allemand</option>
+    </select>
+    <button type="submit">go</button>
+</form>
+{% trans into language %}Hello{% endtrans %}
+
+    <h1>{% trans into language %}Category list{% endtrans %} :</h1>
     <ul>
     {% for category in categories %}
     <li><a href="{{ path('show_category') }}/{{ category.name|url_encode }}">{{ category.name }}</a></li>
@@ -12,7 +24,7 @@
         Aucun article trouvé.
     {% endfor %}
     </ul>
-    <a href='{{ path('tag_index') }}'>List de tags</a><br>
-    <a href="{{ path('article_index') }}">List des Article</a><br>
-    <a href='{{ path('add_category') }}'>Ajouter une categorie</a><br>    
+    <a href='{{ path('tag_index') }}'>{% trans into language %}Tag list{% endtrans %}</a><br>
+    <a href="{{ path('article_index') }}">{% trans into language %}List of articles{% endtrans %}</a><br>
+    <a href='{{ path('add_category') }}'>{% trans into language %}Add category{% endtrans %}</a><br>    
 {% endblock %}

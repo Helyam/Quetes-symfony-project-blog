@@ -37,7 +37,7 @@ class BlogController extends AbstractController
         /*return $this->render(
             'blog/index.html.twig',
             ['articles' => $articles,
-            'categories' => $categories]
+            'categories' => $categories]fr
         );*/
 
         $form = $this->createForm(
@@ -45,13 +45,26 @@ class BlogController extends AbstractController
             null,
             ['method' => Request::METHOD_GET]
         );
+
+        $language = $_SESSIONS['language'] = 'en';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST)) {
+            if ($_POST['language'] == "de_DE") {
+                $language =  $_POST['language'];
+            } elseif ($_POST['language'] == "fr_FR") {
+                $language =  $_POST['language'];
+            } elseif ($_POST['language'] == "en") {
+                $language =  $_POST['language'];
+            }
+        }
      
         return $this->render(
             'blog/index.html.twig',
             [
             'articles' => $articles,
             'form' => $form->createView(),
-            'categories' => $categories
+            'categories' => $categories,
+            'language' => $language
          ]
      );
     }
@@ -73,15 +86,17 @@ class BlogController extends AbstractController
             ->createNotFoundException('No slug has been sent to find an article in article\'s table.');
         }
 
+        /*
         $slug = preg_replace(
             '/-/',
             ' ',
             ucwords(trim(strip_tags($slug)), "-")
         );
+        */
 
         $article = $this->getDoctrine()
             ->getRepository(Article::class)
-            ->findOneBy(['title' => mb_strtolower($slug)]);
+            ->findOneBy(['slug' => mb_strtolower($slug)]);
 
         if (!$article) {
             throw $this->createNotFoundException(
