@@ -57,7 +57,7 @@ class BlogController extends AbstractController
                 $language =  $_POST['language'];
             }
         }
-     
+
         return $this->render(
             'blog/index.html.twig',
             [
