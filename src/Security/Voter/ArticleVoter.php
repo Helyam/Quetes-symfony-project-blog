@@ -27,15 +27,14 @@ class ArticleVoter extends Voter
         }
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-                case 'EDIT':
-            if (($article->getAuthor()->getId() === $user->getId()) ||
+            case 'EDIT':
+                if (($article->getAuthor()->getId() === $user->getId()) ||
                 ('ROLE_ADMIN' === $user->getRoles()[0])) {
                 return true;
-            }
-                
-            // no break
+                }
+
             case 'DELETE':
-               if (($article->getAuthor()->getId() === $user->getId()) ||
+                if (($article->getAuthor()->getId() === $user->getId()) ||
                 ('ROLE_ADMIN' === $user->getRoles()[0])) {
                    return true;
                }
