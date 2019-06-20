@@ -12,7 +12,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $faker = Faker\Factory::create('fr_FR');
+        $faker = Factory::create('fr_FR');
         $v=0;
         for ($i = 0; $i < 50; $i++) {
             $article = new Article();
@@ -24,6 +24,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
                 $v++;
             }
             $article->setCategory($this->getReference('categorie_' . $v));
+            $article->setSlug($faker->sentence());
         }
         $manager->flush();
     }

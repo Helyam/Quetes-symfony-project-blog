@@ -29,6 +29,17 @@ class UserFixtures extends Fixture
 
         $manager->persist($author);
 
+        // Création d’un utilisateur de type “auteur”
+        $author = new User();
+        $author->setEmail('helyam@monsite.com');
+        $author->setRoles(['ROLE_AUTHOR']);
+        $author->setPassword($this->passwordEncoder->encodePassword(
+            $author,
+            'helyam'
+        ));
+
+        $manager->persist($author);
+
         // Création d’un utilisateur de type “administrateur”
         $admin = new User();
         $admin->setEmail('admin@monsite.com');

@@ -22,12 +22,14 @@
                 <td>{{ article.content }}</td>
                 <td>
                     <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_AUTHOR') and (app.user == article.author) %}
+                    <a href="{{ path('article_edit', { 'id': article.id} ) }}">Éditer</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">no article found</td>
             </tr>
         {% endfor %}
         </tbody>

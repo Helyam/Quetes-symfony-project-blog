@@ -31,8 +31,10 @@
     </ul>
 
     <a href="{{ path('article_index') }}">back to list</a>
-
-    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
+    
+    {% if is_granted('ROLE_AUTHOR') and app.user == article.author %}
+        <a href="{{ path('article_edit', { 'id': article.id} ) }}">Éditer</a>
+    {% endif %}
 
     {{ include('article/_delete_form.html.twig') }}
 {% endblock %}

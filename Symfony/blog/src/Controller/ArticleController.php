@@ -9,6 +9,7 @@ use App\Repository\ArticleRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -28,6 +29,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
+     * @IsGranted("ROLE_AUTHOR")
      */
     public function new(Request $request, Slugify $slugify, \Swift_Mailer $mailer): Response
     {
@@ -70,9 +72,12 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_AUTHOR")
      */
     public function edit(Request $request, Article $article): Response
     {
+        $this->denyAccessUnlessGranted('EDIT', $article);
+
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -92,9 +97,12 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}", name="article_delete", methods={"DELETE"})
+     * @IsGranted("ROLE_AUTHOR")
      */
     public function delete(Request $request, Article $article): Response
     {
+        $this->denyAccessUnlessGranted('DELETE', $article);
+
         if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($article);

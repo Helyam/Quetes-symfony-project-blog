@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategoryController extends AbstractController
@@ -17,6 +18,7 @@ class CategoryController extends AbstractController
     *
     * @Route("/blog/addArticle", name="add_category")
     * @return Response A response instance
+    * @IsGranted("ROLE_ADMIN")
     */
     public function add(Request $request, ObjectManager $manager)
     {
