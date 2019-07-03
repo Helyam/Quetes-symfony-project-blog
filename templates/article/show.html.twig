@@ -3,8 +3,9 @@
 {% block title %}Article{% endblock %}
 
 {% block body %}
-    <h1>Article</h1>
 
+<div class="container">
+    <h1>Article</h1>
     <table class="table">
         <tbody>
             <tr>
@@ -21,20 +22,39 @@
             </tr>
         </tbody>
     </table>
+
     <strong>Tags :</strong>
     <ul>
         {% for tag in article.tags %}
-            <li><a href="{{ path('tag_name', {'name': tag.name}) }}">{{ tag.name }}</a> </li>
+        <li><a href="{{ path('tag_name', {'name': tag.name}) }}">{{ tag.name }}</a> </li>
         {% else %}
-            <li>No tags for this article</li>
+        <li>No tags for this article</li>
         {% endfor %}
     </ul>
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js,
+                fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id))
+                return;
 
-    <a href="{{ path('article_index') }}">back to list</a>
-    
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <div class="row">
+        <!-- Your share button code -->
+        <div class="fb-share-button" data-href="http://localhost:8000/article/{{ article.id }}" data-layout="button_count"></div>
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+    <a href="{{ path('article_index') }}"><button class="btn bg-primary">back to list</button></a>
+
     {% if is_granted('ROLE_AUTHOR') and app.user == article.author %}
-        <a href="{{ path('article_edit', { 'id': article.id} ) }}">Éditer</a>
+    <a href="{{ path('article_edit', { 'id': article.id} ) }}">Éditer</a>
     {% endif %}
-
-    {{ include('article/_delete_form.html.twig') }}
 {% endblock %}

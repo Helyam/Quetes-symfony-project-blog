@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Article;
 use App\Service\Slugify;
 use App\Form\ArticleType;
@@ -62,7 +63,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/{id}", name="article_show", methods={"GET"})
      */
-    public function show(Article $article): Response
+    public function show(Article $article, User $user): Response
     {
         return $this->render('article/show.html.twig', [
             'article' => $article,
@@ -95,7 +96,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="article_delete", methods={"DELETE"})
      * @IsGranted("ROLE_AUTHOR")
      */
     public function delete(Request $request, Article $article): Response
